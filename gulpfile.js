@@ -10,5 +10,16 @@ gulp.task('js', function() {
         .pipe(gulp.dest('./build'));
 });
 
-gulp.task('build', ['js']);
+gulp.task('copy', function() {
+   return gulp.src('index.html')
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('watch', ['build'], function () {
+    gulp.watch('jsx/*.{js,jsx}', ['js']);
+    //gulp.watch('src/less/**/*.less', ['less']);
+    gulp.watch(['index.html'], ['copy']);
+});
+
+gulp.task('build', ['js', 'copy']);
 gulp.task('default', ['build']);
